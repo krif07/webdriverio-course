@@ -2,11 +2,17 @@ describe('Blog List Tests', () => {
 
     it('Get the list of the all recent post and assert them', async () => {
         await browser.url('/');
-        const blogtLink = $("//ul[@id='primary-menu']//a[text()='Blog']");
-        await blogtLink.click();
+        const blogLink = $("//ul[@id='primary-menu']//a[text()='Blog']");
+        await blogLink.click();
 
-        const contactTitleElement = $('h1.tg-page-header__title');
-        await contactTitleElement.waitForDisplayed();
+        const blogTitleElement = $('h1.tg-page-header__title');
+        //await contactTitleElement.waitForDisplayed();
+        await browser.waitUntil( async function (){
+            const blogTitleText = await blogTitleElement.getText();
+            return (blogTitleText.toString() === "Blog");
+        }, {
+            timeoutMsg: 'Could not verify the blog title from locator'
+        });
 
         const recentPostElements = await $$('#secondary ul a');
 
