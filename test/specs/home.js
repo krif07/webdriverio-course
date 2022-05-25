@@ -32,5 +32,4 @@ describe('Home', () => {
         const textElement = await $('.elementor-widget-container h1');
         await expect(textElement).toHaveText('Think different. Make different.');
     });
-
 });
