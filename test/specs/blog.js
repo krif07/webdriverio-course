@@ -7,7 +7,7 @@ describe('Blog List Tests', () => {
 
         const blogTitleElement = $('h1.tg-page-header__title');
         //await contactTitleElement.waitForDisplayed();
-        await browser.waitUntil( async function (){
+        await browser.waitUntil( async () => {
             const blogTitleText = await blogTitleElement.getText();
             return (blogTitleText.toString() === "Blog");
         }, {
