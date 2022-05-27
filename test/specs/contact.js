@@ -25,4 +25,4 @@ describe('Contact Form', () => {
         await alertMessageElement.waitForDisplayed();
         await expect(alertMessageElement).toHaveText('Thanks for contacting us! We will be in touch with you shortly');
     });
-})
+});
