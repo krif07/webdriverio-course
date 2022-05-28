@@ -1,3 +1,5 @@
+import navComponent from "./components/nav.component";
+
 class HomePage {
     open(){
         return browser.url('/');
@@ -7,6 +9,10 @@ class HomePage {
     }
     get textHeading(){
         return $('.elementor-widget-container h1');
+    }
+
+    get navComponent(){
+        return navComponent;
     }
 }
 export default new HomePage();
