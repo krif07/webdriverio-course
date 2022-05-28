@@ -7,11 +7,10 @@ describe('Contact Form', () => {
         await contactPage.contactLink.click();
         await contactPage.contactHeaderTitle.waitForDisplayed();
 
-        await contactPage.contactName.setValue('Cristian Dávila');
-        await contactPage.contactEmail.setValue('krif07@gmail.com');
-        await contactPage.contactPhone.setValue('3174739663');
-        await contactPage.contactMessage.setValue('Message to krif');
-        await contactPage.submitButton.click();
+        await contactPage.submitForm('Cristian Dávila',
+            'krif07@gmail.com',
+            '3174739663',
+            'Message to krif');
 
         await contactPage.alertMessageElement.waitForDisplayed();
         await expect(contactPage.alertMessageElement)

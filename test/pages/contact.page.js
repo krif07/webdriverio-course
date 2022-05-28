@@ -27,5 +27,12 @@ class ContactPage {
     get alertMessageElement() {
         return $('div[role="alert"]');
     }
+    async submitForm(name, email, phone, message){
+        await this.contactName.setValue(name);
+        await this.contactEmail.setValue(email);
+        await this.contactPhone.setValue(phone);
+        await this.contactMessage.setValue(message);
+        await this.submitButton.click();
+    }
 }
 export default new ContactPage();
