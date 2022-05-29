@@ -1,8 +1,25 @@
 import homePage from "../pages/home.page";
 
 describe('Home', () => {
+
+    before(async () => {
+        console.log("User for test setup");
+    });
+
+    beforeEach( async () => {
+        console.log("Use before each test");
+        await homePage.open();
+    });
+
+    after( async () => {
+        console.log("Can be used for test clean up");
+    });
+
+    afterEach( async () => {
+       console.log("can be used for log out");
+    });
+
     it('Open url and assert title', async () => {
-       await homePage.open();
        await expect(browser).toHaveTitle('Practice E-Commerce Site – Automation Bro');
     });
 
@@ -12,7 +29,6 @@ describe('Home', () => {
     });
 
     it('Click get started button and assert url contains get-started text', async () => {
-        await homePage.open();
         await homePage.btnGetStarted.click();
         await expect(browser).toHaveUrlContaining('get-started');
     });
@@ -24,13 +40,11 @@ describe('Home', () => {
     });
 
     it('Find heading text and assert the text', async () => {
-        await homePage.open();
         const text = await homePage.textHeading.getText();
         await expect(text).toEqual('Think different. Make different.');
     });
 
     it('Find heading text and assert the text - second method', async () => {
-        await homePage.open();
         const textElement = await homePage.textHeading;
         await expect(textElement).toHaveText('Think different. Make different.');
     });
