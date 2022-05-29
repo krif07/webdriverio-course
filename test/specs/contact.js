@@ -1,4 +1,5 @@
 import contactPage from "../pages/contact.page";
+import { faker } from '@faker-js/faker';
 
 describe('Contact Form', () => {
 
@@ -7,10 +8,10 @@ describe('Contact Form', () => {
         await contactPage.contactLink.click();
         await contactPage.contactHeaderTitle.waitForDisplayed();
 
-        await contactPage.submitForm('Cristian Dávila',
-            'krif07@gmail.com',
-            '3174739663',
-            'Message to krif');
+        await contactPage.submitForm(faker.name.findName(),
+            faker.internet.email(),
+            faker.phone.phoneNumber(),
+            faker.lorem.paragraph(2));
 
         await contactPage.alertMessageElement.waitForDisplayed();
         await expect(contactPage.alertMessageElement)
