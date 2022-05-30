@@ -1,3 +1,5 @@
+const allure = require('allure-commandline');
+
 exports.config = {
     //
     // ====================
@@ -21,12 +23,22 @@ exports.config = {
     // will be called from there.
     //
     specs: [
-        './test/specs/**/home.js'
+        './test/specs/**/*.js'
     ],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
     ],
+    suites: {
+        smoke: [
+            './test/specs/**/home.js',
+            './test/specs/**/contact.js'
+        ],
+        component: [
+            './test/specs/**/nav.js',
+            './test/specs/**/blog.js',
+        ]
+    },
     //
     // ============
     // Capabilities
@@ -62,7 +74,11 @@ exports.config = {
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
         // excludeDriverLogs: ['bugreport', 'server'],
-    }],
+    }/*,
+        {
+            maxInstances: 2,
+            browserName: 'firefox',
+        }*/],
     //
     // ===================
     // Test Configurations
@@ -111,6 +127,7 @@ exports.config = {
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
     services: ['chromedriver'],
+    //services: ['selenium-standalone', { drivers: { chrome: '101.0.4951.67' } }],
 
     // Framework you want to run your specs_no_pom with.
     // The following are supported: Mocha, Jasmine, and Cucumber
@@ -132,10 +149,13 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
-
-
-
+    reporters: [
+        'spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: false,
+            disableWebdriverScreenshotsReporting: false
+        }]],
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -282,8 +302,26 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+     onComplete: function(exitCode, config, capabilities, results) {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function(exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        });
+     },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session

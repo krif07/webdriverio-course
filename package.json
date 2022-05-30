@@ -4,13 +4,22 @@
   "description": "Udemy WebdriverIO course",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "spec:home": "npx wdio --spec test/specs/home.js",
+    "exclude": "npx wdio --exclude test/specs/home.js --exclude test/specs/nav.js",
+    "e2e:smoke": "npx wdio --suite smoke",
+    "e2e:component": "npx wdio --suite component",
+    "e2e:suite": "npx wdio --suite component --suite smoke",
+    "e2e": "npx wdio",
+    "allure:generate-open" :"npx allure generate allure-results && npx allure open",
+    "allure:open": "npx allure open"
   },
   "keywords": [],
   "author": "Cristian Fernando Dávila",
   "license": "ISC",
   "dependencies": {
-    "@wdio/cli": "^7.19.7"
+    "@wdio/cli": "^7.19.7",
+    "allure-commandline": "^2.17.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -18,8 +27,10 @@
     "@babel/preset-env": "^7.18.2",
     "@babel/register": "^7.17.7",
     "@faker-js/faker": "^7.1.0",
+    "@wdio/allure-reporter": "^7.19.7",
     "@wdio/local-runner": "^7.19.7",
     "@wdio/mocha-framework": "^7.19.7",
+    "@wdio/selenium-standalone-service": "^7.19.5",
     "@wdio/spec-reporter": "^7.19.7",
     "chromedriver": "^101.0.0",
     "eslint": "^8.16.0",
