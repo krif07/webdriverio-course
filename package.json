@@ -11,15 +11,18 @@
     "e2e:component": "npx wdio --suite component",
     "e2e:suite": "npx wdio --suite component --suite smoke",
     "e2e": "npx wdio",
-    "allure:generate-open" :"npx allure generate allure-results && npx allure open",
-    "allure:open": "npx allure open"
+    "allure:generate-open": "npx allure generate allure-results && npx allure open",
+    "allure:open": "npx allure open",
+    "e2e:bs": "BROWSERSTACK_USERNAME=cristianfdvila_P361jC BROWSERSTACK_ACCESS_KEY=wwVnEFkzRz6xg2KHZHpt npx wdio --suite smoke",
+    "e2exxxxxxxxxx:test": "dotenv -e .env tsc && wdio wdio.conf.ts"
   },
   "keywords": [],
   "author": "Cristian Fernando Dávila",
   "license": "ISC",
   "dependencies": {
     "@wdio/cli": "^7.19.7",
-    "allure-commandline": "^2.17.2"
+    "allure-commandline": "^2.17.2",
+    "dotenv": "^16.0.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -28,6 +31,7 @@
     "@babel/register": "^7.17.7",
     "@faker-js/faker": "^7.1.0",
     "@wdio/allure-reporter": "^7.19.7",
+    "@wdio/browserstack-service": "^7.19.7",
     "@wdio/local-runner": "^7.19.7",
     "@wdio/mocha-framework": "^7.19.7",
     "@wdio/selenium-standalone-service": "^7.19.5",
