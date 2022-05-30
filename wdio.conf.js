@@ -1,15 +1,21 @@
 const allure = require('allure-commandline');
 //require('dotenv').config();
 import 'dotenv/config';
-console.log(process.env.BROWSERSTACK_USERNAME);
-console.log(process.env.BROWSERSTACK_ACCESS_KEY);
+console.log(process.env.SAUCE_USERNAME);
+console.log(process.env.SAUCE_ACCESS_KEY);
 
 exports.config = {
     // ====================
     // Browserstack Configuration
     // ====================
-    user: process.env.BROWSERSTACK_USERNAME,
-    key: process.env.BROWSERSTACK_ACCESS_KEY,
+    //user: process.env.BROWSERSTACK_USERNAME,
+    //key: process.env.BROWSERSTACK_ACCESS_KEY,
+    // ====================
+    // SauceLabs Configuration
+    // ====================
+    user: process.env.SAUCE_USERNAME,
+    key: process.env.SAUCE_ACCESS_KEY,
+    region: 'us',
     //
     // ====================
     // Runner Configuration
@@ -135,9 +141,17 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: [
+    /*services: [
         ['browserstack', {
             browserstackLocal: false
+        }]
+    ],*/
+    services: [
+        ['sauce', {
+            sauceConnect: true,
+            sauceConnectOpts: {
+                // ...
+            }
         }]
     ],
     //services: ['chromedriver'],
