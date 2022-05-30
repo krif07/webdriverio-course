@@ -1,5 +1,8 @@
+import allureReporter from '@wdio/allure-reporter';
+
 describe('Home', () => {
     it('Open url and assert title', async () => {
+        allureReporter.addSeverity("Minor");
        await browser.url('https://practice.automationbro.com/');
        await expect(browser).toHaveTitle('Practice E-Commerce Site – Automation Bro');
     });
@@ -22,6 +25,9 @@ describe('Home', () => {
     });
 
     it('Find heading text and assert the text', async () => {
+        allureReporter.addFeature("Find Heading");
+        allureReporter.addSeverity("Normal");
+
         await browser.url('https://practice.automationbro.com/');
         const text = await $('.elementor-widget-container h1').getText();
         await expect(text).toEqual('Think different. Make different.');

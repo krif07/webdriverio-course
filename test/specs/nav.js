@@ -1,8 +1,12 @@
 import homePage from "../pages/home.page";
+import allureReporter from '@wdio/allure-reporter';
 
 describe('Navigation Menu', () => {
 
     it('Get text of all menu elements and assert them', async () => {
+        allureReporter.addFeature("Navigation Feature");
+        allureReporter.addSeverity("Critical");
+
         await homePage.open();
 
         const actualElements = [];
